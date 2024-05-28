@@ -221,7 +221,7 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                                         throw Exception("NOT")
                                     }
                                     else->{
-                                        if (a.toDouble()<=ty.valume && a.toDouble()>=0.0){
+                                        if (a.toDouble()<=(Math.round(ty.valume * 1000.0)/1000.0) && a.toDouble()>=0.0){
                                             changed = 1
                                             ty.fluidLevel = a.toDouble()
                                             break
@@ -232,7 +232,7 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                                     }
                                 }
                             }catch (e:Exception){
-                                EmptyBody().errorRead(from = "0", to = "${ty.valume}")
+                                EmptyBody().errorRead(from = "0", to = "${(Math.round(ty.valume * 1000.0)/1000.0)}")
                             }
                         }
                     }else{
@@ -322,11 +322,6 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                     }else{
                         list[ID] = cloned
                     }
-                    println("""
-                        ${ty.typeOfFigure}
-                        ${cloned.typeOfFigure}
-                    """.trimIndent())
-
                     EmptyBody().backToMain(list)
                 }
                 else->{
@@ -375,20 +370,16 @@ fun changeDataBy(list: MutableList<MainTypesInfo>){
 }
 
 fun deleteIt(list: MutableList<MainTypesInfo>){
-    println("Удаление")
-    val checkLength = EmptyBody().showTable(list)
 
+    val checkLength = EmptyBody().showTable(list)
+    val printedList = EmptyBody().printRow(list)
+    println("__Удаление__")
+    EmptyBody().skipLine
     while (true){
         println("Выберите объект для удаления.")
         EmptyBody().skipLine
-
-        list.forEachIndexed { index, it ->
-            println(
-                "[${index+1}]| ${it.typeOfFigure}" + " ".repeat(checkLength[0][0]-it.typeOfFigure.length) +
-                        " | ${Math.round(it.valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(it.valume * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(it.fluidLevel * 1000.0)/1000.0}" + " ".repeat(checkLength[0][2]-(Math.round(it.fluidLevel * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(it.pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(it.pumpingSpeedIN * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0} |" + " ".repeat(checkLength[0][4]-(Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0).toString().length))
+        printedList.forEach {
+            println(it)
         }
         println("0. Отмена")
 

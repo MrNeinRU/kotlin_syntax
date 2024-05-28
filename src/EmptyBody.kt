@@ -48,16 +48,17 @@ class EmptyBody {
 
         val checkLength = EmptyBody().showTable(list)
         val tempList:MutableList<String> = mutableListOf()
+        val dop = 3
         ID?.let {
             var id: String = ""
             if (modifier) id = "[${ID+1}]"
 
             tempList.add(
-                "$id| ${list[ID].typeOfFigure}" + " ".repeat(checkLength[0][0]-list[ID].typeOfFigure.length) +
-                        " | ${Math.round(list[ID].valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(list[ID].valume * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(list[ID].fluidLevel * 1000.0)/1000.0}" + " ".repeat(checkLength[0][2]-(Math.round(list[ID].fluidLevel * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(list[ID].pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(list[ID].pumpingSpeedIN * 1000.0)/1000.0).toString().length) +
-                        " | ${Math.round(list[ID].pumpingSpeedOUT * 1000.0)/1000.0} |" + " ".repeat(checkLength[0][4]-(Math.round(list[ID].pumpingSpeedOUT * 1000.0)/1000.0).toString().length)
+                "$id| ${list[ID].typeOfFigure}" + " ".repeat(checkLength[0][0]-list[ID].typeOfFigure.length + dop) +
+                        " | ${Math.round(list[ID].valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(list[ID].valume * 1000.0)/1000.0).toString().length + dop) +
+                        " | ${Math.round(list[ID].fluidLevel * 1000.0)/1000.0}" + " ".repeat(checkLength[0][2]-(Math.round(list[ID].fluidLevel * 1000.0)/1000.0).toString().length + dop) +
+                        " | ${Math.round(list[ID].pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(list[ID].pumpingSpeedIN * 1000.0)/1000.0).toString().length + dop) +
+                        " | ${Math.round(list[ID].pumpingSpeedOUT * 1000.0)/1000.0}" + " ".repeat(checkLength[0][4]-(Math.round(list[ID].pumpingSpeedOUT * 1000.0)/1000.0).toString().length+dop) + " |"
             )
         }?: run {
             list.forEachIndexed { index, it ->
@@ -65,11 +66,11 @@ class EmptyBody {
                 if (modifier) id = "[${index+1}]"
 
                 tempList.add(
-                    "$id| ${it.typeOfFigure}" + " ".repeat(checkLength[0][0]-it.typeOfFigure.length) +
-                            " | ${Math.round(it.valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(it.valume * 1000.0)/1000.0).toString().length) +
-                            " | ${Math.round(it.fluidLevel * 1000.0)/1000.0}" + " ".repeat(checkLength[0][2]-(Math.round(it.fluidLevel * 1000.0)/1000.0).toString().length) +
-                            " | ${Math.round(it.pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(it.pumpingSpeedIN * 1000.0)/1000.0).toString().length) +
-                            " | ${Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0} |" + " ".repeat(checkLength[0][4]-(Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0).toString().length)
+                    "$id| ${it.typeOfFigure}" + " ".repeat(checkLength[0][0]-it.typeOfFigure.length + dop) +
+                            " | ${Math.round(it.valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(it.valume * 1000.0)/1000.0).toString().length + dop) +
+                            " | ${(Math.round(it.percent * 1000.0)/1000.0).toInt()}" + " ".repeat(checkLength[0][2]-(Math.round(it.percent * 1000.0)/1000.0).toInt().toString().length + dop) +
+                            " | ${Math.round(it.pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(it.pumpingSpeedIN * 1000.0)/1000.0).toString().length + dop) +
+                            " | ${Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0}" + " ".repeat(checkLength[0][4]-(Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0).toString().length+dop) + " |"
                 )
             }
         }
@@ -80,12 +81,12 @@ class EmptyBody {
     fun defaultLoad():MutableList<MainTypesInfo>{
         val list: MutableList<MainTypesInfo> = mutableListOf()
         list.add(
-            ParallelepipedInfo()
-        )
-        list.add(
-            CylinderInfo(
+            ParallelepipedInfo(
                 fluidLevel = 4.0
             )
+        )
+        list.add(
+            CylinderInfo()
         )
         return list
     }
@@ -94,8 +95,8 @@ class EmptyBody {
         return """
             Список резервуаров
             
-            [Объём - полный возможный объём резервуара]
-            [Уров. - нынешний уровень жидкости]
+            [Объём (м³) - полный возможный объём резервуара]
+            [Уров. (%) - нынешний уровень жидкости]
             [IN - скорость закачки]
             [OUT - скорость откачки]
             

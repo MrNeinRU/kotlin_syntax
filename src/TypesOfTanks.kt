@@ -1,26 +1,29 @@
-data class volume(
+private data class volume(
+    val name: String,
     val typeOfTanks: String,
     val formula_V: String,
 )
 
 class TypesOfTanks{
+    private val nameP = "Параллелепипед"
     private val parallelepiped_V = "V = a * b * c"
     private val parallelepiped = """
             +------+.
-            |`.    | `. 
-            |  `+--+---+    ${EmptyBody().formulaV}
-            |   |  |   |        $parallelepiped_V
-            +---+--+.  |
+            |`.    | `.         $nameP
+            |  `+--+---+    
+            |   |  |   |    ${EmptyBody().formulaV}        
+            +---+--+.  |        $parallelepiped_V
              `. |    `.|
                `+------+
         """.trimIndent()
 
+    private val nameC = "Цилиндр"
     private val cylinder_V = "V = π * r^2 * h"
     private val cylinder = """
-             .-----.
-            (       )   ${EmptyBody().formulaV}
-            |'-----'|       $cylinder_V
-            |       |       
+             .-----.        $nameC
+            (       )   
+            |'-----'|   ${EmptyBody().formulaV}       
+            |       |       $cylinder_V       
             |.-----.|
             (       )
              '-----'
@@ -38,15 +41,15 @@ class TypesOfTanks{
 
 
     fun typeOfTanks(list: MutableList<MainTypesInfo>){
+        println("__Виды резервуаров__")
+        EmptyBody().skipLine
         val l = listOf(
-            volume(typeOfTanks = parallelepiped, formula_V = parallelepiped_V),
-            volume(typeOfTanks = cylinder, formula_V = cylinder_V),
+            volume(name = nameP, typeOfTanks = parallelepiped, formula_V = parallelepiped_V),
+            volume(name = nameC, typeOfTanks = cylinder, formula_V = cylinder_V),
         )
         l.forEach {
             print(it.typeOfTanks)
             EmptyBody().skipLine
-//            print("     ")
-//            println(it.formula_V)
         }
         EmptyBody().backToMain(list)
 

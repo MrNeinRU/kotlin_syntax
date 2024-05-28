@@ -160,12 +160,100 @@ fun filter(list: MutableList<MainTypesInfo>){
     }
 }
 
-fun sort(list: MutableList<MainTypesInfo>){
+private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
+    println("Тип сортировки:")
+    EmptyBody().skipLine
+    println("""
+        1. Прямой
+        2. Обратный
+        0. Назад
+    """.trimIndent())
+    try {
+        when(val l = readln().toInt()){
+            1->{
+                when(noN){
+                    1->{
+                        val sortedL = list.sortedBy {
+                            it.typeOfFigure
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                    2->{
+                        val sortedL = list.sortedBy {
+                            (Math.round(it.valume * 1000.0)/1000.0)
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                    3->{
+                        val sortedL = list.sortedBy {
+                            it.fluidLevel
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                }
+            }
+            2->{
+                when(noN){
+                    1->{
+                        val sortedL = list.sortedByDescending {
+                            it.typeOfFigure
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                    2->{
+                        val sortedL = list.sortedByDescending {
+                            (Math.round(it.valume * 1000.0)/1000.0)
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                    3->{
+                        val sortedL = list.sortedByDescending {
+                            it.fluidLevel
+                        }.toMutableList()
+                        println("Сортеровка завершина")
+                        EmptyBody().skipLine
+                        EmptyBody().backToMain(sortedL)
+                    }
+                }
+            }
+            0->sort(list)
+        }
+    }catch (e:Exception){
 
-    val sortedList = list.sortedBy{ it.fluidLevel.toInt() }//todo не работает сортировка
-    sortedList.forEach {
-        println(it)
     }
 
-    EmptyBody().backToMain(list)
+
+}
+
+fun sort(list: MutableList<MainTypesInfo>){
+    println("__Сортировка__")
+    EmptyBody().skipLine
+
+    while (true){
+        println("""
+            1. Названию
+            2. Общему объёму
+            3. Объёму жидкости
+            0. Отмена
+        """.trimIndent())
+        try {
+            when(val a = readln().toInt()){
+                in 1..3->subSort(list, a)
+                0-> EmptyBody().backToMain(list)
+                else-> throw Exception()
+            }
+        }catch (e:Exception){
+            EmptyBody().errorRead(from = "0", to = "3")
+        }
+    }
 }
