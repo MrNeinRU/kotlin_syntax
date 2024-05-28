@@ -162,7 +162,7 @@ fun filter(list: MutableList<MainTypesInfo>){
 
 fun sort(list: MutableList<MainTypesInfo>){
 
-    val sortedList = list.sortedBy{ it.fluidLevel.toInt() }
+    val sortedList = list.sortedBy{ it.fluidLevel.toInt() }//todo не работает сортировка
     sortedList.forEach {
         println(it)
     }

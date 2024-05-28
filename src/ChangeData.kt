@@ -62,7 +62,7 @@ private fun subCreate(ch:Int, list: MutableList<MainTypesInfo>){
 
 
 fun createNew(list: MutableList<MainTypesInfo>){
-    println("Создание")
+    println("__Создание__")
 
     while (true){
         println("""
@@ -92,32 +92,37 @@ fun createNew(list: MutableList<MainTypesInfo>){
 
 private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                         fromCreat:Boolean = false){
-    val printedList = EmptyBody().printRow(list, ID)
+    val printedList = EmptyBody().printRow(list, ID, modifier = false)
     var changed = 0
 
-    println("Изменяемый элемент")
+    println("__Изменяемый элемент__")
     printedList.forEach {
         println(it)
     }
 
     val ty:MainTypesInfo = list[ID!!]
+    val cloned = when(list[ID]::class.java.typeName){
+        "ParallelepipedInfo"->{
+            ParallelepipedInfo(
+                list[ID].typeOfFigure,
+                list[ID].sizes,
+                list[ID].fluidLevel,
+                list[ID].pumpingSpeedIN,
+                list[ID].pumpingSpeedOUT
+            )
+        }
+        else->{
+            CylinderInfo(
+                list[ID].typeOfFigure,
+                list[ID].sizes,
+                list[ID].fluidLevel,
+                list[ID].pumpingSpeedIN,
+                list[ID].pumpingSpeedOUT
+            )
+        }
+    }
 
-//    val chParallelepipedInfo = ParallelepipedInfo(
-//        typeOfFigure = list[ID].typeOfFigure,
-//        sizes = list[ID].sizes,
-//        fluidLevel = list[ID].fluidLevel,
-//        pumpingSpeedIN = list[ID].pumpingSpeedIN,
-//        pumpingSpeedOUT = list[ID].pumpingSpeedOUT
-//    )
-//    val chCylinderInfo = CylinderInfo(
-//        typeOfFigure = list[ID].typeOfFigure,
-//        sizes = list[ID].sizes,
-//        fluidLevel = list[ID].fluidLevel,
-//        pumpingSpeedIN = list[ID].pumpingSpeedIN,
-//        pumpingSpeedOUT = list[ID].pumpingSpeedOUT
-//    )
-
-    println(">> ${ty::class.java.typeName} <<")
+    //println(">> ${ty::class.java.typeName} <<")
     EmptyBody().skipLine
 
     while (true){
@@ -125,8 +130,8 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
         EmptyBody().skipLine
         println("""
             1. название    (${ty.typeOfFigure})
-            2. размеры    (${ty.sizes}) объём: ${(Math.round(ty.valume * 1000.0)/1000.0)}
-            3. заполненность    (${ty.fluidLevel}) ${if (fromCreat) "быстрое изменение доступно только сейчас" else ""}
+            2. размеры    (${ty.sizes}) объём: ${(Math.round(ty.valume * 1000.0)/1000.0)} м³
+            3. заполненность    (${ty.fluidLevel}) м³ ${if (fromCreat) "быстрое изменение доступно только сейчас" else ""}
             4. скорость закачки    (${ty.pumpingSpeedIN})
             5. скорость откачки    (${ty.pumpingSpeedOUT}) 
             6. СОХРАНИТЬ    ${if (fromCreat) "и выйти" else ""}
@@ -305,13 +310,22 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                         list[ID] = ty
                         println("Значения сохранены")
                         EmptyBody().skipLine
-                        if (fromCreat) EmptyBody().backToMain(list)
+                        if (fromCreat) EmptyBody().backToMain(list) else subChangeBy(list, ID, fromCreat)
                     }else throw LoginException("EX")
                 }
                 0->{
-                    if (changed == 0 && fromCreat) {
+                    //todo ошибка.При отмене, данные все ровно затираются
+                    //todo из-за чего?
+                    //TODO | вроде пофиксил, но выглядит странно (может нет)
+                    if (fromCreat) {
                         list.removeAt(ID)
+                    }else{
+                        list[ID] = cloned
                     }
+                    println("""
+                        ${ty.typeOfFigure}
+                        ${cloned.typeOfFigure}
+                    """.trimIndent())
 
                     EmptyBody().backToMain(list)
                 }
@@ -382,6 +396,7 @@ fun deleteIt(list: MutableList<MainTypesInfo>){
             when(val k = readln().toInt()){
                 in 1..list.size->{
                     list.removeAt(k-1)
+                    println("Объект удалён")
                     EmptyBody().backToMain(list)
                 }
                 0->{
