@@ -20,6 +20,7 @@ fun test(list: MutableList<MainTypesInfo>) = runBlocking {
     }
     launch {
         while (true){
+            delay(100)
             if(fds.isCompleted) {
                 fds2.cancel()
                 EmptyBody().backToMain(list)

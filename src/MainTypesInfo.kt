@@ -8,7 +8,7 @@ open class MainTypesInfo(
     var pumpingSpeedOUT: Double = 1.0
 ){
     open val valume: Double = 0.0
-    open val percent:Int = 0
+    open val percent:Double = 0.0
 }
 
 class ParallelepipedInfo(
@@ -28,8 +28,8 @@ class ParallelepipedInfo(
     override val valume:Double
         get() = (Math.round((this.sizes[0] * this.sizes[1] * this.sizes[2]) * 1000.0)/1000.0)
 
-    override val percent: Int
-        get() = ((this.fluidLevel * 100) / this.valume).toInt()
+    override val percent: Double
+        get() = ((this.fluidLevel * 100) / this.valume)
 }
 
 class CylinderInfo(
@@ -49,6 +49,6 @@ class CylinderInfo(
     override val valume:Double
         get() = (Math.round((PI * (this.sizes[0]*this.sizes[0]) * this.sizes[1]) * 1000.0)/1000.0)
 
-    override val percent: Int
-        get() = ((this.fluidLevel * 100) / this.valume).toInt()
+    override val percent: Double
+        get() = ((this.fluidLevel * 100) / this.valume)
 }

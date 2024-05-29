@@ -65,7 +65,7 @@ class EmptyBody {
                 tempList.add(
                     "$id| ${it.typeOfFigure}" + " ".repeat(checkLength[0][0]-it.typeOfFigure.length + dop) +
                             " | ${Math.round(it.valume * 1000.0)/1000.0}" + " ".repeat(checkLength[0][1]-(Math.round(it.valume * 1000.0)/1000.0).toString().length + dop) +
-                            " | ${(Math.round(it.percent * 1000.0)/1000.0).toInt()}" + " ".repeat(checkLength[0][2]-(Math.round(it.percent * 1000.0)/1000.0).toInt().toString().length + dop) +
+                            " | ${(Math.round(it.percent * 1000.0)/1000.0)}" + " ".repeat(checkLength[0][2]-(Math.round(it.percent * 1000.0)/1000.0).toString().length + dop) +
                             " | ${Math.round(it.pumpingSpeedIN * 1000.0)/1000.0}" + " ".repeat(checkLength[0][3]-(Math.round(it.pumpingSpeedIN * 1000.0)/1000.0).toString().length + dop) +
                             " | ${Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0}" + " ".repeat(checkLength[0][4]-(Math.round(it.pumpingSpeedOUT * 1000.0)/1000.0).toString().length+dop) + " |"
                 )

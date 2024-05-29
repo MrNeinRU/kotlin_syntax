@@ -1,3 +1,7 @@
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 private enum class En(val value: String) {
     IN("закачка"), OUT("откачка")
@@ -8,10 +12,96 @@ private data class PumpingOptions(
     val startingPoint: Double,
     val endingPoint: Double? = null,
     val randomized:Boolean = false,
-    val randRange: IntRange = 0..0
+    val randRange: IntRange = 0..0,
+    var done:Boolean = false
 )
 class Pumping (private val list: MutableList<MainTypesInfo>){
     private val printingList = EmptyBody().printRow(list)
+
+    private fun corProcessing(modifierList: MutableMap<Int, PumpingOptions>) = runBlocking {
+        launch(Dispatchers.IO) {
+//            EmptyBody().printRow(list).forEach(::println)//todo стереть
+//            modifierList.forEach(::println)//todo стереть
+            val gf = 1000L
+            val upGf = 600L
+
+            modifierList.forEach { index, item ->
+                val job1 = launch(Dispatchers.IO) {
+                    if (item.randomized){
+
+                    }else{
+                        print("${list[item.ID-1].typeOfFigure} ${list[item.ID-1].percent}")
+                        while (true){
+
+                            val cond:Double = when(item.pInOut){
+                                En.IN->{
+                                    list[item.ID-1].pumpingSpeedIN/10
+                                }
+                                En.OUT->{
+                                    list[item.ID-1].pumpingSpeedOUT/10
+                                }
+                                else -> {0.1}
+                            }
+                            when(item.pInOut){
+                                En.IN->{
+                                    if (list[item.ID-1].fluidLevel < item.endingPoint!!){
+                                        list[item.ID-1].fluidLevel += cond
+                                        delay(gf)
+                                    }
+                                    if (list[item.ID-1].fluidLevel > item.endingPoint){
+                                        list[item.ID-1].fluidLevel = item.endingPoint
+                                    }
+                                }
+                                En.OUT->{
+                                    if (list[item.ID-1].fluidLevel > item.endingPoint!!){
+                                        list[item.ID-1].fluidLevel -= cond
+                                        delay(gf)
+                                    }
+                                    if (list[item.ID-1].fluidLevel < item.endingPoint){
+                                        list[item.ID-1].fluidLevel = item.endingPoint
+                                    }
+                                }
+                                else -> {}
+                            }
+                            if (list[item.ID-1].fluidLevel == item.endingPoint){
+                                break
+                            }
+
+                        }
+                    }
+                }
+            }
+            launch(Dispatchers.IO) {
+                var liv = 0
+                while (true){
+                    print("\r")
+                    modifierList.forEach { t, item ->
+                        val pathH = list[item.ID-1]
+
+                        while (true){
+                            print("${pathH.typeOfFigure} ${(Math.round(pathH.percent * 1000.0)/1000.0)} %  ")
+                            Thread.sleep(if (t==0) 10L else upGf)
+                            if (list[item.ID-1].fluidLevel == item.endingPoint) {
+                                //liv++
+                                if (!item.done){
+                                    liv++
+                                    item.done = true
+                                }
+                                print("\r${pathH.typeOfFigure} ${(Math.round(pathH.percent * 1000.0)/1000.0)} %  ")
+                                print(" ГОТОВО!")
+                            }
+                            break
+                        }
+                    }
+                    if (liv == modifierList.size){
+                        println(">> Все задачи завершены <<")
+                        break
+                    }
+                }
+
+            }
+        }
+    }
 
     private fun typeOfAction(modifierList: MutableMap<Int, PumpingOptions>, objectT: Int):MutableMap<Int, PumpingOptions>{
         println("Меню: Тип действия *")
@@ -159,7 +249,11 @@ class Pumping (private val list: MutableList<MainTypesInfo>){
                 try {
                     when(readln().toInt()){
                         1->modifierList = typeOfAction(modifierList, objectT)
-                        2->randAction(modifierList, objectT)
+                        2-> {
+                            println(">!> НЕ ЗАВЕРШЕНО <!<")
+                            continue
+                            randAction(modifierList, objectT)
+                        }
                         3->{
                             if (modifierList[objectT]!!.pInOut!=null && modifierList[objectT]!!.endingPoint!=null)
                                 break
@@ -178,6 +272,7 @@ class Pumping (private val list: MutableList<MainTypesInfo>){
         }
         println("Обработка завершина\n")
 
+        corProcessing(modifierList)
         //todo вход в короутину
     }
 
@@ -234,6 +329,7 @@ class Pumping (private val list: MutableList<MainTypesInfo>){
                     }
                     else->throw Exception("Ошибка ввода")
                 }
+                EmptyBody().backToMain(list)
             }catch (e:Exception){
                 println(">> ${e.message}")
                 EmptyBody().errorRead(from = "0 (только выход)", to = "списка")
