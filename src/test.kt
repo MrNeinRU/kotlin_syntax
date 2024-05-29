@@ -1,16 +1,15 @@
 import kotlinx.coroutines.*
-import java.io.Console
 
 fun test(list: MutableList<MainTypesInfo>) = runBlocking {
-    val mainL = 30
+    val mainL = 4
     var c = 0
     val li = listOf("[ \\ ]", "[ | ]", "[ / ]", "[ - ]")
     val fds = launch(Dispatchers.IO) {
         while (true){
             print("\r")
             if (c > mainL) break
-            print("[" + "=".repeat(c) + " ".repeat(mainL-c) + "]")
-            delay(100)
+            print("[" + "=".repeat(c) + " ".repeat(mainL-c) + "] ${((c.toDouble() / mainL.toDouble())*100).toInt()}%")
+            delay(800)
             c++
         }
     }

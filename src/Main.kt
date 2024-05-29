@@ -34,39 +34,17 @@ class Main{
         }
 
         when(optionS){
-            1->{
-                TypesOfTanks().typeOfTanks(listIk!!)
-            }
-            2->{
-                ListOfTanks().printListOfTanks(listIk!!)
-            }
-            3->{
-                Pumping(listIk!!).startSelectPump()
-            }
-            4->{
-                createNew(listIk!!)
-            }
-            5->{
-                changeDataBy(listIk!!)
-            }
-            6->{
-                deleteIt(listIk!!)
-            }
-            7->{
-                filter(listIk!!)
-            }
-            8->{
-                sort(listIk!!)
-            }
-            9->{
-                test(listIk!!)
-            }
-            0->{
-                exitProcess(0)
-            }
-            else->{
-                println("Неожиданная ошибка")
-            }
+            1->TypesOfTanks().typeOfTanks(listIk!!)
+            2->ListOfTanks().printListOfTanks(listIk!!)
+            3->Pumping(listIk!!).startSelectPump()
+            4->createNew(listIk!!)
+            5->changeDataBy(listIk!!)
+            6->deleteIt(listIk!!)
+            7->filter(listIk!!)
+            8->sort(listIk!!)
+            9->test(listIk!!)
+            0->exitProcess(0)
+            else->println("Неожиданная ошибка")
         }
     }
 }
