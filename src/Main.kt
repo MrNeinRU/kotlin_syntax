@@ -12,6 +12,7 @@ class Main{
         println("6. Удалить резервуар.")
         println("7. Фильтровать резервуары.")
         println("8. Сортировать резервуары.")
+        println("9. test.")
         println("0. Выход.")
 
         var optionS:Int?
@@ -19,7 +20,7 @@ class Main{
         while (true){
             try {
                 when(val ff = readln().toInt()){
-                    in 0..8->{
+                    in 0..9->{
                         optionS = ff
                         break
                     }
@@ -28,7 +29,7 @@ class Main{
                     }
                 }
             }catch (e:Exception){
-                EmptyBody().errorRead(from = "0",to = "8")
+                EmptyBody().errorRead(from = "0",to = "8+9")
             }
         }
 
@@ -56,6 +57,9 @@ class Main{
             }
             8->{
                 sort(listIk!!)
+            }
+            9->{
+                test(listIk!!)
             }
             0->{
                 exitProcess(0)
