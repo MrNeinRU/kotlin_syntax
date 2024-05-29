@@ -5,6 +5,7 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
 
     println("Нынешняя таблица")
     EmptyBody().skipLine
+    EmptyBody().printRowTitle(list).apply(::println)
     printedList.forEachIndexed { index, it ->
         println(it)
     }
@@ -24,6 +25,7 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
                         it.typeOfFigure.startsWith(str, ignoreCase = true)
                     }
                     val printedList2 = EmptyBody().printRow(list = tempList.toMutableList(), modifier = false)
+                    EmptyBody().printRowTitle(tempList.toMutableList()).apply(::println)
                     printedList2.forEachIndexed { index, it ->
                         println(it)
                     }
@@ -45,9 +47,9 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
                     val str = readln()
                     println(str.split("&&").size)
                     val tempList = list.filter {
-                        var target:Double = when(byField){
+                        val target:Double = when(byField){
                             3->{
-                                it.fluidLevel
+                                it.percent.toDouble()
                             }
 
                             4->{
@@ -99,8 +101,11 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
                         }
                     }
                     val printedList2 = EmptyBody().printRow(list = tempList.toMutableList(), modifier = false)
-                    printedList2.forEachIndexed { index, it ->
-                        println(it)
+                    if (tempList.isNotEmpty()){
+                        EmptyBody().printRowTitle(tempList.toMutableList()).apply(::println)
+                        printedList2.forEachIndexed { index, it ->
+                            println(it)
+                        }
                     }
 
                     if (tempList.isEmpty()) println("Данных нет")
@@ -124,7 +129,7 @@ private fun subFilter(list: MutableList<MainTypesInfo>, byField:Int) {
             0. Назад
         """.trimIndent())
         try {
-            when(val a = readln().toInt()){
+            when(readln().toInt()){
                 1->{
                     beginFilter(list, byField)
                 }
@@ -140,7 +145,8 @@ private fun subFilter(list: MutableList<MainTypesInfo>, byField:Int) {
 fun filter(list: MutableList<MainTypesInfo>){
     while (true){
         println("""
-            Фильтровать по:
+            __Фильтровать по:
+            
             1. Названию
             2. Объёму
             3. Заполненности
@@ -164,19 +170,19 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
     println("Тип сортировки:")
     EmptyBody().skipLine
     println("""
-        1. Прямой
-        2. Обратный
+        1. По возрастанию
+        2. По убыванию
         0. Назад
     """.trimIndent())
     try {
-        when(val l = readln().toInt()){
+        when(readln().toInt()){
             1->{
                 when(noN){
                     1->{
                         val sortedL = list.sortedBy {
                             it.typeOfFigure
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -184,7 +190,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
                         val sortedL = list.sortedBy {
                             (Math.round(it.valume * 1000.0)/1000.0)
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -192,7 +198,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
                         val sortedL = list.sortedBy {
                             it.fluidLevel
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -204,7 +210,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
                         val sortedL = list.sortedByDescending {
                             it.typeOfFigure
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -212,7 +218,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
                         val sortedL = list.sortedByDescending {
                             (Math.round(it.valume * 1000.0)/1000.0)
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -220,7 +226,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
                         val sortedL = list.sortedByDescending {
                             it.fluidLevel
                         }.toMutableList()
-                        println("Сортеровка завершина")
+                        println("Сортировка завершена")
                         EmptyBody().skipLine
                         EmptyBody().backToMain(sortedL)
                     }
@@ -229,7 +235,7 @@ private fun subSort(list: MutableList<MainTypesInfo>, noN: Int){
             0->sort(list)
         }
     }catch (e:Exception){
-
+        EmptyBody().errorRead(from = "0", to = "2")
     }
 
 

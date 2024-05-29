@@ -40,7 +40,7 @@ class Main{
                 ListOfTanks().printListOfTanks(listIk!!)
             }
             3->{
-                pumping(listIk!!)
+                Pumping(listIk!!).startSelectPump()
             }
             4->{
                 createNew(listIk!!)
@@ -70,6 +70,6 @@ class Main{
 
 
 fun main() {
-    var listIk_ = EmptyBody().defaultLoad()
+    val listIk_ = EmptyBody().defaultLoad()
     Main().mainMenu(listIk_)
 }

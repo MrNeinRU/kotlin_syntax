@@ -30,14 +30,14 @@ class TypesOfTanks{
         """.trimIndent()
 
 
-    private val ellipsoid = """
-            _________
-            |       |
-            |       | <- цилиндр
-            |       |
-            (       ) <- полусфера
-             (_____)
-        """.trimIndent()
+//    private val ellipsoid = """
+//            _________
+//            |       |
+//            |       | <- цилиндр
+//            |       |
+//            (       ) <- полусфера
+//             (_____)
+//        """.trimIndent()
 
 
     fun typeOfTanks(list: MutableList<MainTypesInfo>){

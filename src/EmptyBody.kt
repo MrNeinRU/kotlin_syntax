@@ -1,13 +1,11 @@
 class EmptyBody {
     val skipLine = println()
+    private val dop = 3
     fun errorRead(from:String? = null, to:String? = null){
         val subM = from?.let{"Попробуйте от $from до $to" }?: ""
-        val errorRead = println("Введено некорректное значение! $subM")
+        println("Введено некорректное значение! $subM")
     }
     val formulaV = "Формула вычисления объёма"
-    fun subFormulaInfo():String{
-        return "Где x - одно"
-    }
     fun backToMain(list: MutableList<MainTypesInfo>){
         println("Нажмите Enter чтобы вернуться к меню")
         readln().let {
@@ -15,7 +13,7 @@ class EmptyBody {
         }
     }
 
-    fun showTable(list: MutableList<MainTypesInfo>):MutableList<MutableList<Int>>{
+    fun showLengthTable(list: MutableList<MainTypesInfo>):MutableList<MutableList<Int>>{
         val checkLength:MutableList<MutableList<Int>> = mutableListOf(mutableListOf(0,0,0,0,0))
 
         list.forEach{item ->
@@ -25,7 +23,7 @@ class EmptyBody {
             if ((Math.round(item.pumpingSpeedIN * 1000.0)/1000.0).toString().length>checkLength[0][3]) checkLength[0][3] = (Math.round(item.pumpingSpeedIN * 1000.0)/1000.0).toString().length
             if ((Math.round(item.pumpingSpeedOUT * 1000.0)/1000.0).toString().length>checkLength[0][4]) checkLength[0][4] = (Math.round(item.pumpingSpeedOUT * 1000.0)/1000.0).toString().length
         }
-        return checkLength
+        return checkLength//[[14, 6, 3, 3, 3]]
 
     }
 
@@ -46,11 +44,10 @@ class EmptyBody {
                  modifier:Boolean = true):List<String>{
         //ID = index
 
-        val checkLength = EmptyBody().showTable(list)
+        val checkLength = EmptyBody().showLengthTable(list)
         val tempList:MutableList<String> = mutableListOf()
-        val dop = 3
         ID?.let {
-            var id: String = ""
+            var id = ""
             if (modifier) id = "[${ID+1}]"
 
             tempList.add(
@@ -62,7 +59,7 @@ class EmptyBody {
             )
         }?: run {
             list.forEachIndexed { index, it ->
-                var id: String = ""
+                var id = ""
                 if (modifier) id = "[${index+1}]"
 
                 tempList.add(
@@ -76,6 +73,17 @@ class EmptyBody {
         }
 
         return tempList
+    }
+
+    fun printRowTitle(list: MutableList<MainTypesInfo>):String{
+        val checkLength = EmptyBody().showLengthTable(list)
+
+        val x = "|"+"Название"+" ".repeat(checkLength[0][0]-"Название".length+2+dop)+"|"+
+                "Объём"+" ".repeat(checkLength[0][1]-"объём".length+2+dop)+"|"+
+                "Уров.%"+" ".repeat(checkLength[0][2]-"Уров.%".length+2+dop)+"|"+
+                "IN"+" ".repeat(checkLength[0][3]-"IN".length+2+dop)+"|"+
+                "OUT"+" ".repeat(checkLength[0][4]-"OUT".length+2+dop)+"|"
+        return x
     }
 
     fun defaultLoad():MutableList<MainTypesInfo>{
@@ -93,7 +101,7 @@ class EmptyBody {
 
     fun listOfTanksTitle():String{
         return """
-            Список резервуаров
+            __Список резервуаров__
             
             [Объём (м³) - полный возможный объём резервуара]
             [Уров. (%) - нынешний уровень жидкости]

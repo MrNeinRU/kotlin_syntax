@@ -34,7 +34,7 @@ private fun subCreate(ch:Int, list: MutableList<MainTypesInfo>){
             0. Отмена
         """.trimIndent())
         try {
-            when(val f = readln().toInt()){
+            when(readln().toInt()){
                 1->{
                     when(ch){
                         1->{list.add(ParallelepipedInfo())}
@@ -62,7 +62,7 @@ private fun subCreate(ch:Int, list: MutableList<MainTypesInfo>){
 
 
 fun createNew(list: MutableList<MainTypesInfo>){
-    println("__Создание__")
+    println("__Создание__\n")
 
     while (true){
         println("""
@@ -95,7 +95,8 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
     val printedList = EmptyBody().printRow(list, ID, modifier = false)
     var changed = 0
 
-    println("__Изменяемый элемент__")
+    println("\\/ Изменяемый элемент \\/")
+    EmptyBody().printRowTitle(list).apply(::println)
     printedList.forEach {
         println(it)
     }
@@ -139,7 +140,7 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
         println("0. Отмена")
 
         try {
-            when(val k = readln().toInt()){
+            when(readln().toInt()){
                 1->{
                     println("нынешнее значение -> ${ty.typeOfFigure}")
                     EmptyBody().skipLine
@@ -209,7 +210,7 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                         println(EmptyBody().helpMassageForChangeData(
                             typeOfData = "значение",
                             example = "1",
-                            acceptable_value = "1"
+                            acceptable_value = "1 | допустимы значения от 0.0 до ${ty.valume}"
                         ))
                         EmptyBody().skipLine
                         print("Введите новое значение: ")
@@ -314,9 +315,6 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
                     }else throw LoginException("EX")
                 }
                 0->{
-                    //todo ошибка.При отмене, данные все ровно затираются
-                    //todo из-за чего?
-                    //TODO | вроде пофиксил, но выглядит странно (может нет)
                     if (fromCreat) {
                         list.removeAt(ID)
                     }else{
@@ -341,11 +339,12 @@ private fun subChangeBy(list: MutableList<MainTypesInfo>, ID:Int?,
 }
 
 fun changeDataBy(list: MutableList<MainTypesInfo>){
-    println("Изменение")
+    println("__Изменение__")
 
     while (true){
         println("Выберите объект для изменения.")
         val printedList = EmptyBody().printRow(list)
+        println("___${EmptyBody().printRowTitle(list)}")
         printedList.forEach {
             println(it)
         }
@@ -371,13 +370,13 @@ fun changeDataBy(list: MutableList<MainTypesInfo>){
 
 fun deleteIt(list: MutableList<MainTypesInfo>){
 
-    val checkLength = EmptyBody().showTable(list)
     val printedList = EmptyBody().printRow(list)
     println("__Удаление__")
     EmptyBody().skipLine
     while (true){
         println("Выберите объект для удаления.")
         EmptyBody().skipLine
+        println("___${EmptyBody().printRowTitle(list)}")
         printedList.forEach {
             println(it)
         }
