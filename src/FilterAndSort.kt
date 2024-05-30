@@ -21,16 +21,22 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
                 EmptyBody().skipLine
                 try {
                     val str = readln()
+
                     val tempList = list.filter {
                         it.typeOfFigure.startsWith(str, ignoreCase = true)
                     }
-                    val printedList2 = EmptyBody().printRow(list = tempList.toMutableList(), modifier = false)
-                    EmptyBody().printRowTitle(tempList.toMutableList()).apply(::println)
-                    printedList2.forEachIndexed { index, it ->
-                        println(it)
+
+                    if (tempList.isEmpty()) {
+                        println("Данных нет")
+                    }else{
+                        val printedList2 = EmptyBody().printRow(list = tempList.toMutableList(), modifier = false)
+                        EmptyBody().printRowTitle(tempList.toMutableList()).apply(::println)
+                        printedList2.forEachIndexed { index, it ->
+                            println(it)
+                        }
+                        EmptyBody().skipLine
                     }
-                    if (tempList.isEmpty()) println("Данных нет")
-                    EmptyBody().skipLine
+
                     subFilter(list, byField)
                 }catch (e:Exception){
                     EmptyBody().errorRead()
@@ -45,7 +51,6 @@ private fun beginFilter(list: MutableList<MainTypesInfo>, byField:Int){
 
                 try {
                     val str = readln()
-                    println(str.split("&&").size)
                     val tempList = list.filter {
                         val target:Double = when(byField){
                             3->{
