@@ -111,4 +111,14 @@ class EmptyBody {
         """.trimIndent()
     }
 
+    fun checkCorrect(list: MutableList<MainTypesInfo>):MutableList<MainTypesInfo>{
+        list.forEach {
+            if (it.fluidLevel>it.valume){
+                it.fluidLevel = it.valume
+            }
+        }
+
+        return list
+    }
+
 }

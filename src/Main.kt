@@ -1,7 +1,7 @@
 import kotlin.system.exitProcess
 
 class Main{
-    fun mainMenu(listIk: MutableList<MainTypesInfo>?){
+    fun mainMenu(listIk_: MutableList<MainTypesInfo>?){
         println("Выберите пункт меню.")
         EmptyBody().skipLine
         println("1. Виды резервуаров.")
@@ -16,6 +16,7 @@ class Main{
         println("0. Выход.")
 
         var optionS:Int?
+        val listIk = EmptyBody().checkCorrect(listIk_!!)
 
         while (true){
             try {
