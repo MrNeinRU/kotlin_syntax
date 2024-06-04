@@ -167,3 +167,121 @@
 
 </li>
 </p>
+
+<h1 align="center"></h1>
+<h1 align="center">РЕЗУЛЬТАТЫ</h1>
+
+<h3 align="center"><br>Действие (2. Вывести список резервуаров.)</br></h3>
+<p>
+  
+  ![Снимок экрана 2024-05-30 192808](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/4ffdb24e-31c2-4d73-aaa1-2fb82543c651)
+  
+</p>
+
+<h3 align="center"><br>Действие (3. Закачка/откачка.)</br></h3>
+<p>
+  Одновременная откачка из резервуара 1 и закачка в резервуар 2
+  
+  ![Снимок экрана 2024-06-04 131035](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/882a5ad0-8ba5-47e9-88a7-2ee25765d1ba)
+  
+</p>
+
+<h3 align="center"><br>Действие (4. Добавить резервуар.)</br></h3>
+<p>
+  Добавление параллелепипеда по умолчанию и изменённого цилиндра.
+  
+  ![Снимок экрана 2024-06-04 131402](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/df004193-80ef-48cc-99c6-4919199a255e)
+
+</p>
+
+<h3 align="center"><br>Действие (5. Изменить данные резервуара.)</br></h3>
+<p>
+  У номера [4] изменяю общий объём
+  
+  ![Снимок экрана 2024-06-04 131618](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/e73b4133-ca22-4e6b-8e22-cc09dd8ffa59)
+
+</p>
+
+<h3 align="center"><br>Действие (6. Удалить резервуар.)</br></h3>
+<p>
+  Удоляю номера [2] (название: «Цилиндр»).
+  
+  ![Снимок экрана 2024-06-04 131809](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/100370a4-1fd3-44e1-ab22-b8ffab845f4c)
+
+</p>
+
+<h3 align="center"><br>Действие (7. Фильтровать резервуары.)</br></h3>
+<p>
+  <li>
+    Фильтрация по названию:
+
+  ![Снимок экрана 2024-06-04 132058](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/35bb1516-a6c7-4d25-804d-fa00de196e52)
+    
+  </li>
+
+  <li>
+    Фильтрация по объёму:
+
+  ![Снимок экрана 2024-06-04 132221](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/61a2e939-1752-4e2b-80f5-9fcadc1934e0)
+    
+  </li>
+
+  <li>
+    Фильтрация по заполненности:
+
+  ![Снимок экрана 2024-06-04 132328](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/49458c45-9831-472b-83e0-681ec663ed74)
+    
+  </li>
+
+  <li>
+    Фильтрация по cкорости закачки:
+
+  ![Снимок экрана 2024-06-04 133315](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/adf671ab-0463-4e58-a9fb-b4bbefc728a6)
+    
+  </li>
+
+  <li>
+    Фильтрация по cкорости откачки:
+
+  ![Снимок экрана 2024-06-04 133526](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/d9cffa8c-fe0e-4073-83fa-7ef4895099f7)
+
+    
+  </li>
+</p>
+
+<h3 align="center"><br>Действие (8. Сортировать резервуары.)</br></h3>
+<p>
+  <li>
+    Исходная таблица:
+
+![Снимок экрана 2024-06-04 133859](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/5affea5a-e733-46cd-b3f9-979c49cf81c4)
+
+    
+  </li>
+  
+  <li>
+    Сортировка по названию:
+(По возрастанию)
+
+![Снимок экрана 2024-06-04 134047](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/c018de03-2a9d-4c87-bdcd-40e51fb52de6)
+    
+  </li>
+
+  <li>
+    Сортировка по общему объёму:
+(По возрастанию)
+
+![Снимок экрана 2024-06-04 134206](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/efedbac8-cd1f-4398-a1ef-db7b0ab99367)
+    
+  </li>
+
+  <li>
+    Сортировка по объёму жидкости:
+(По возрастанию)
+
+![Снимок экрана 2024-06-04 134310](https://github.com/MrNeinRU/kotlin_syntax/assets/171032643/da445a8f-3b37-45c9-a8d8-fe9d1f5aac12)
+
+    
+  </li>
+</p>
+
